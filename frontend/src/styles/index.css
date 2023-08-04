@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'IBM Plex Sans Condensed', sans-serif;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+.slider-container {
+  display: flex;
+  overflow: hidden;
+  overflow-x: scroll;
+}
+/* .slider-container {
+  animation: slide 10s linear infinite;
+} */
+
+.slide {
+  flex: none;
+  width: 100%;
+  min-width: 100%;
+  /* opacity: 0;
+  transition: opacity 1s ease; */
+}
+
+.active-slide {
+  opacity: 1;
+}
+
+.inactive-slide {
+  opacity: 1;
+  /* display: none; */
+}
+
+.slide-in-from-leftz {
+  transform: translateX(-100%);
+  transition: transform 1s ease;
+}
+
+.slide-in-from-rightz {
+  transform: translateX(100%);
+  transition: transform 1s ease;
+}
+
+.slide-in-from-left.active-slide,
+.slide-in-from-right.active-slide {
+  transform: translateX(0);
+}
+
+@keyframes from-right {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(
+      -50%
+    ); /* Adjust this percentage based on the number of images */
+  }
+}
