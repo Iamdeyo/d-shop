@@ -61,7 +61,7 @@ const MobileMenu = ({ toggleMenu }) => {
           <div className="flex flex-col text-center gap-2 pt-4">
             <Link
               className="text-white text-sm py-3 rounded-xl bg-dark hover:bg-[#08b059]"
-              to={'/seller'}
+              to={'/shop-create'}
             >
               Sell on Kusnap
             </Link>

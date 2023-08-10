@@ -2,6 +2,7 @@ import ErrorHandler from '../utils/ErrorHandler.js';
 import catchAsyncErrors from './catchAsyncErrors.js';
 import jwt from 'jsonwebtoken';
 import User from '../model/user.js';
+import Shop from '../model/shop.js';
 
 const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   const { token } = req.cookies;
@@ -14,4 +15,15 @@ const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   next();
 });
 
-export { isAuthenticated };
+const isSellerAuthenticated = catchAsyncErrors(async (req, res, next) => {
+  const { seller_token } = req.cookies;
+  if (!seller_token) {
+    return next(new ErrorHandler('Please login to contiue', 401));
+  }
+  const decoded = jwt.verify(seller_token, process.env.JWT_SECRET_KEY);
+
+  req.shop = await Shop.findById(decoded.id);
+  next();
+});
+
+export { isAuthenticated, isSellerAuthenticated };

@@ -305,7 +305,7 @@ const productData = [
       },
       {
         public_id: 'test',
-        url: 'https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg',
+        url: 'https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/71/2326212/1.jpg?8188',
       },
     ],
     shop: {

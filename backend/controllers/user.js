@@ -136,4 +136,21 @@ const getUser = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(err.message, 500));
   }
 });
-export { createUser, activateUser, loginUser, getUser };
+
+// Log out user
+const logOut = catchAsyncErrors(async (req, res, next) => {
+  try {
+    res.cookie('token', null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: 'Log out successful!',
+    });
+  } catch (err) {
+    return next(new ErrorHandler(err.message, 400));
+  }
+});
+export { createUser, activateUser, loginUser, getUser, logOut };

@@ -14,11 +14,23 @@ import SearchBar from './SeachBar.jsx';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { server } from '../../../server';
+import Cart from '../Cart/Cart.jsx';
+import Wishlist from '../Wishlist/Wishlist.jsx';
 
 const Header = () => {
   const { user } = useSelector((state) => state.user);
-  console.log(user);
+  // console.log(user);
+  const [openCart, setOpenCart] = useState(false);
+  const [openWishlist, setOpenWishlist] = useState(false);
   const [menu, setMenu] = useState(false);
+
+  const toggleCart = () => {
+    setOpenCart(!openCart);
+  };
+  const toggleWishlist = () => {
+    setOpenWishlist(!openWishlist);
+  };
+
   const toggleMenu = () => {
     setMenu(!menu);
   };
@@ -46,25 +58,25 @@ const Header = () => {
           {menu && <MobileMenu toggleMenu={toggleMenu} />}
           {user ? (
             <div className="flex items-center gap-4">
-              <div className="relative">
+              <div className="relative cursor-pointer" onClick={toggleWishlist}>
                 <FiHeart size={24} />
                 <span className="absolute -top-2 -right-1 w-4 text-center h-4 text-[8px] bg-green-600 rounded-full py-[2px]">
                   0
                 </span>
               </div>
-              <div className="relative">
+              <div className="relative cursor-pointer" onClick={toggleCart}>
                 <FiShoppingCart size={24} />
                 <span className="absolute -top-2 -right-1 w-4 text-center h-4 text-[8px] bg-green-600 rounded-full py-[2px]">
                   0
                 </span>
               </div>
-              <div className="">
+              <Link to={'/profile'} className="">
                 <img
                   src={`http://localhost:8080/${user.avatar}`}
                   alt="Profile Pics"
                   className="w-9 h-9 rounded-full object-cover"
                 />
-              </div>
+              </Link>
             </div>
           ) : (
             <div className="flex items-center h-full gap-4 text-[12.8px]">
@@ -87,12 +99,15 @@ const Header = () => {
           <SearchBar />
           <Link
             className="text-white px-4 text-sm py-3 flex-none rounded-xl bg-dark hover:bg-[#08b059] hidden md:block"
-            to={'/seller'}
+            to={'/shop-create'}
           >
             Sell on Kusnap
           </Link>
         </div>
       </div>
+      {/* Cart popup*/}
+      {openCart ? <Cart toggleCart={toggleCart} /> : null}
+      {openWishlist ? <Wishlist toggleWishlist={toggleWishlist} /> : null}
     </section>
   );
 };
